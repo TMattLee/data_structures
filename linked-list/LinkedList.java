@@ -2,7 +2,9 @@ public class LinkedList<T> {
 	
 	private Node<T> node;		
 	private int size;	
-	private static class Node<T> {		
+	
+	private static class Node<T> {	
+		
 		public Node<T> next;
 		public T value;
 		public Node(T value) {
@@ -149,6 +151,22 @@ public class LinkedList<T> {
 		return this;
 	}
 	
+	public LinkedList<T> reverse(){		
+		if(this.size > 1) {
+			Node<T> temp = this.node;
+			LinkedList<T> newLinkedList = new LinkedList<T>(temp.value);
+			
+			while(temp.next != null) {
+				temp = temp.next;
+				newLinkedList.insertHead(temp.value);
+			}
+			
+			this.node = newLinkedList.node;
+		} 
+		
+		return this;
+	}
+	
 	public void print() {
 		if(this.node == null) {
 			System.out.println("null");
@@ -164,13 +182,9 @@ public class LinkedList<T> {
 		}
 		
 	}
-
 	
 	public int size() {
 		return this.size;
 	}
 	
-	
 }
-
-
