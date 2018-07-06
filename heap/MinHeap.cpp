@@ -1,38 +1,38 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 
-class MaxHeap{
+class MinHeap{
     public:
         void insert(int v);
         void remove(int v);           
-        void maxHeapify();
+        void minHeapify();
         void print();
-	int extractMax();
+	int extractMin();
 	int size();
 	private:
 	std::vector<int> data;    
         int parent(int i);
         int leftChild(int i);
         int rightChild(int i);
-		void siftUp(int i);
+	void siftUp(int i);
         void siftDown(int i);
-		void swap(int e, int v);        
+	void swap(int e, int v);        
 };
 
-int MaxHeap::extractMax(){
+int MinHeap::extractMin(){
     return this->data[0];
 }
 
-int MaxHeap::size(){
+int MinHeap::size(){
     return this->data.size();
 }
 
-void MaxHeap::insert(int v){
+void MinHeap::insert(int v){
     this->data.push_back(v);
     this->siftUp(this->data.size()-1);    
 }
 
-void MaxHeap::remove(int v){
+void MinHeap::remove(int v){
     int pos;
     for (int j = 0; j < this->data.size(); j++){
         if(this->data[j] == v){
@@ -45,56 +45,57 @@ void MaxHeap::remove(int v){
     this->siftDown(pos);
 }
 
-void MaxHeap::swap(int e, int v){
+void MinHeap::swap(int e, int v){
     int temp = this->data[e];
     this->data[e] = this->data[v];
     this->data[v] = temp;
 }
 
-void MaxHeap::siftUp(int i){
+void MinHeap::siftUp(int i){
     int temp;
-    while (i > 0 && this->data[this->parent(i)] < this->data[i]){        
+    while (i > 0 && this->data[this->parent(i)] > this->data[i]){        
         temp = this->data[i];
         this->swap(i, this->parent(i));
         i = this->parent(i);       
     }    
 }
 
-void MaxHeap::siftDown(int i){
-    int maxIndex = i;
+void MinHeap::siftDown(int i){
+    int minIndex = i;
     int l = this->leftChild(i);
     int r = this->rightChild(i);
-    if (l < this->data.size() && this->data[l] > this->data[maxIndex]){
-        maxIndex = l;
-    }    
-    if (r < this->data.size() && this->data[r] > this->data[maxIndex]){
-        maxIndex = r;
-    }    
-    if (i != maxIndex){
-        this->swap(i,maxIndex);  
-        this->siftDown(maxIndex);		
+        
+    if (r < this->data.size() && this->data[r] < this->data[minIndex]){
+        minIndex = r;
+    } 
+	if (l < this->data.size() && this->data[l] < this->data[minIndex]){
+        minIndex = l;
+    }	
+    if (i != minIndex){
+        this->swap(i,minIndex);  
+        this->siftDown(minIndex);		
     }
 }
 
-void MaxHeap::maxHeapify(){    
-    for (int x = 0; x < this->data.size() ; x++){
-        this->siftDown(x);
+void MinHeap::minHeapify(){    
+    for (int x = this->data.size() - 1; x > 0; x--){
+        this->siftUp(x);
     }
 }
 
-int MaxHeap::parent(int i){
+int MinHeap::parent(int i){
     return (i-1)/2;
 }
 
-int MaxHeap::leftChild(int i){
+int MinHeap::leftChild(int i){
     return 2*i + 1;
 }
 
-int MaxHeap::rightChild(int i){
+int MinHeap::rightChild(int i){
     return 2*i + 2;
 }
 
-void MaxHeap::print(){
+void MinHeap::print(){
     if(this->data.size() > 0){
         std::cout << "[";
         for (int x = 0; x < this->data.size()-1; x++){
