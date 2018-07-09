@@ -104,6 +104,6 @@ void MinHeap::print(){
         std::cout << this->data[this->data.size()-1] << "]" << "\n";
     }
     else{
-       cout << "Heap is empty.\n"; 
+       std::cout << "Heap is empty.\n"; 
     }
 }
